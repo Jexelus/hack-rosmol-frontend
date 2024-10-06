@@ -1,0 +1,24 @@
+export type ProjectServer = {
+  id: number;
+  author_id: number | null;
+  creation_time_unix: number | null;
+  name: string | null;
+  category: string | null;
+  region: string | null;
+  logo: string | null;
+  contact_info: string | null;
+  project_scale: string | null;
+  project_start_time: string | null;
+  project_end_time: string | null;
+  video_preview: string | null;
+  roles: Record<string, unknown> | null;
+  mentors: Record<string, unknown> | null;
+  description: string | null;
+  issue_description: string | null;
+  project_people_group_target: string | null;
+  project_target: string | null;
+  expireance_of_projects: Record<string, unknown> | null;
+  perspective_of_project: string | null;
+  project_state: string | null;
+  team_id: number | null;
+};
