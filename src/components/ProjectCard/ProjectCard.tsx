@@ -8,8 +8,9 @@ type ProjectCardProps = {
 };
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo }) => {
+  console.log("LOGO!" ,logo)
   return (
-    <Group style={{ width: 'fit-content' }}>
+    <Group style={{ width: 'fit-content', maxWidth: 240, minWidth: 240 }}>
       <Flex margin="auto" direction="column" gap="m">
         <div style={{ width: 220, height: 220 }}>
           <Image keepAspectRatio src={logo ?? undefined} widthSize="100%" />
@@ -18,7 +19,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo }) =>
           <Headline>{name}</Headline>
         </Flex.Item>
         <Flex.Item flex="shrink">
-          <Headline>{description}</Headline>
+          <Headline style={{ maxHeight: 40, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'wrap',}}>{description}</Headline>
         </Flex.Item>
       </Flex>
     </Group>

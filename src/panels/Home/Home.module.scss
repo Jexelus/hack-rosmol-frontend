@@ -2,3 +2,16 @@
   display: flex;
   flex-wrap: wrap;
 }
+.gfp {
+  display: flex;
+  max-width: 550px;
+  min-width: 550px;
+  width: 550px;
+}
+.rootrow {
+  display: flex;
+  flex-direction: row;
+}
+.h4-project-title {
+  text-align: center;
+}
