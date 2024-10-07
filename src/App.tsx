@@ -13,7 +13,7 @@ import {
   useAdaptivityWithJSMediaQueries,
   usePlatform,
   PanelHeaderClose,
-  PanelHeaderButton, Div,
+  PanelHeaderButton, Div, Button,
 } from '@vkontakte/vkui';
 import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router';
 import { Icon24Dismiss, Icon56ServicesOutline } from '@vkontakte/icons';
@@ -154,6 +154,9 @@ export const App = () => {
             <Div className={s.projectModalHeader}>
               <p>{projectData?.name}</p>
             </Div>
+            <Div className={s.projectModalAuthor}>
+              <Button mode="primary" size="l" onClick={() => window.open("https://vk.com/id" + projectData?.author_id, "_blank")}>Автор проекта</Button>
+            </Div>
             <Div className={s.projectModalBody}>
               <Div className={s.projectModalField}>
                 <p>Регион: {projectData?.region}</p>
@@ -192,6 +195,9 @@ export const App = () => {
                     проекта просто нажмите на него</p>
                 )}
               </Div>
+            </Div>
+            <Div className={s.projectModalFooter}>
+              <p>Манипуляции с проектами пока недоступны, приносим свои извинения</p>
             </Div>
           </Div>
         </ModalPage>

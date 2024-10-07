@@ -50,5 +50,30 @@
   //background-color: #4f4f4f;
   padding: 10px;
 }
+.projectModalAuthor {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.projectModalAuthor:hover {
+  transform: scale(1.05);
+}
+.projectModalFooter {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: #0d080f;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.projectModalFooter:hover {
+  transform: scale(1.03);
+}
+
+
 
 
