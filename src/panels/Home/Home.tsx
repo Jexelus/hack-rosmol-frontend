@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Panel, Group, Cell, Avatar, NavIdProps, Div, Flex, Headline, Button } from '@vkontakte/vkui';
+import { Panel, Group, Cell, Avatar, NavIdProps, Div, Flex, Headline, Button, Image, Input } from '@vkontakte/vkui';
 import { UserInfo } from '@vkontakte/vk-bridge';
+
 
 import { useRootStore } from '@/stores/RootStore';
 import { observer } from 'mobx-react-lite';
@@ -8,82 +9,135 @@ import ProjectCard from '@/components/ProjectCard';
 import MiniProjectCard from '@/components/MiniProjectCard';
 
 import s from './Home.module.scss';
+import { useEffect, useState } from 'react';
+import { apiUrls } from '@/api';
 
 export interface HomeProps extends NavIdProps {
   fetchedUser?: UserInfo;
+  onModalChange: (newModal: string | null) => void;
 }
 
-const Home: React.FC<HomeProps> = observer(({ id, fetchedUser }) => {
+const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange }) => {
   const { projectsStore } = useRootStore();
-
   const { photo_200, city, first_name, last_name } = { ...fetchedUser };
 
   React.useEffect(() => {
     projectsStore.fetchProjects();
   }, [projectsStore]);
+  const [categories, setCategories] = useState(null);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
+  const handleButtonClick = () => {
+    onModalChange('warning');
+  };
+
+  useEffect(() => {
+    fetch(apiUrls.categories)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // console.log(data[0])
+        setCategories(data);
+        setCategoriesLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setCategoriesLoading(false);
+      });
+  }, []);
+
+  if (categoriesLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (categoriesError) {
+    return <p>Error: {categoriesError.message}</p>;
+  }
+
+  const filteredCategories = categories ? categories.filter(category =>
+    category.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
+
+  console.log(categories)
   return (
-    <Panel id={id}>
-      {/*<Div className="container">*/}
-      {/*  <Flex direction="row">*/}
-      {/*    <Flex direction="column" >*/}
-      {/*      {fetchedUser && (*/}
-      {/*        <Group style={{ maxWidth: 300 }}>*/}
-      {/*          <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>*/}
-      {/*            {`${first_name} ${last_name}`}*/}
-      {/*          </Cell>*/}
-      {/*        </Group>*/}
-      {/*      )}*/}
-      {/*    </Flex>*/}
-      {/*    <Flex gap="l"  className={s.projects}>*/}
-      {/*      {projectsStore.projects.map((project) => (*/}
-      {/*        <ProjectCard key={project.id} name={project.name} description={project.description} logo={project.logo} />*/}
-      {/*      ))}*/}
-      {/*    </Flex>*/}
-      {/*  </Flex>*/}
-      {/*</Div>*/}
-      <Div className="root">
-        <Flex direction="row" className={s.rootrow}>
-          <Div className={s.gfp}>
-            <Flex gap="l"  className={s.projects}>
-                {projectsStore.projects.map((project) => (
-                  <ProjectCard key={project.id} name={project.name} description={project.description} logo={project.logo} />
-                ))}
-            </Flex>
+  <Panel id={id}>
+    <Div className={s.root}>
+      <Div className={s.splitlayout}>
+        <Div className={s.maincontainer}>
+          <Div className={s.bannercontainer}>
+            <img src={"/images/ban.png"} width={600} height={130}/>
           </Div>
-
-          <Div className="Grid-for-menu">
-            <Flex gap="l" direction="column">
-              <Div className={s.user_profile}>
-                {fetchedUser && (
-                  <Group style={{ maxWidth: 350 }}>
-                    <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>
-                      {`${first_name} ${last_name}`}
-                    </Cell>
-                  </Group>
-                )}
-              </Div>
-              <Div className={s.menu}>
-                <Group>
-                  <Flex margin="auto" direction="column" gap="m">
-                    <Flex.Item flex="shrink">
-                      <Headline>Мои проекты</Headline>
-                    </Flex.Item>
-                    {projectsStore.projects.map((project) => (
-                      <MiniProjectCard key={project.id} name={project.name} description={project.description} logo={project.logo} />
-                    ))}
-                    <Flex.Item flex="shrink" style={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
-                      <Button mode="primary" size="l">Новый проект</Button>
-                    </Flex.Item>
-                  </Flex>
-                </Group>
-              </Div>
-            </Flex>
+        <Div className={s.projectsContainer}>
+          <Flex gap="l" direction="row" className={s.rootrow}>
+            {projectsStore.projects.map((project) => (
+              <ProjectCard key={project.id}
+                           name={project.name}
+                           description={project.description}
+                           logo={project.logo}
+                           author_id={project.authorId}
+                           onModalChange={onModalChange}
+              />
+              ))}
+          </Flex>
+        </Div>
+        </Div>
+        <Div className={s.menucontainer}>
+          <Div className={s.profile}>
+            {fetchedUser && (
+            <Group style={{ maxWidth: 280 }}>
+              <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>
+                {`${first_name} ${last_name}`}
+              </Cell>
+            </Group>
+          )}
           </Div>
-        </Flex>
-
+          <Group className={s.MenuProjectsGroup}>
+            <p>Мои проекты</p>
+              <Div className={s.menuProjectList}>
+                {projectsStore.projects
+                  .filter((project) => project.authorId == fetchedUser?.id) // Фильтруем проекты по author_id
+                  .map((project) => (
+                    <MiniProjectCard
+                      key={project.id}
+                      name={project.name}
+                      description={project.description}
+                      logo={project.logo}
+                    />
+                  ))}
+              </Div>
+              <Div className={s.newProjectButton}>
+                <Button mode="secondary" size="l" style={{backgroundColor: '#0077FF'}}
+                onClick={handleButtonClick}
+                >Новый проект</Button>
+              </Div>
+          </Group>
+          <Group className={s.categoriesMenu}>
+            <Div className={s.searchContainer}>
+              <Input
+                type="text"
+                placeholder="Поиск"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Div>
+            <Div className={s.categoriesList}>
+              {filteredCategories.map((category, index) => (
+                <Div key={index}>
+                  {category}
+                </Div>
+              ))}
+            </Div>
+          </Group>
+        </Div>
       </Div>
-    </Panel>
+    </Div>
+  </Panel>
   );
 });
 

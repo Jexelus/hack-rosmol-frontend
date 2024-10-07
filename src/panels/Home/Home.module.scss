@@ -1,17 +1,89 @@
-.proejects {
-  display: flex;
-  flex-wrap: wrap;
+//.proejects {
+//  display: flex;
+//  flex-wrap: wrap;
+//}
+//.gfp {
+//  display: flex;
+//  max-width: 550px;
+//  min-width: 550px;
+//  width: 550px;
+//}
+//.rootrow {
+//  display: flex;
+//  flex-direction: row;
+//}
+//.h4-project-title {
+//  text-align: center;
+//}
+// width 900px
+.splitlayout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
-.gfp {
-  display: flex;
-  max-width: 550px;
-  min-width: 550px;
-  width: 550px;
+.maincontainer{
+    width: 600px;
 }
+.menucontainer {
+    width: 280px;
+}
+.root {
+  //height: 100%;
+  min-height: 100vh;
+}
+.bannercontainer {
+    width: 600px;
+    height: 130px;
+    padding: 0;
+};
+
+.profile {
+    padding: 0;
+}
+.MenuProjectsGroup {
+
+}
+.MenuProjectsGroup p {
+    text-align: center;
+    margin: 0;
+    padding-top: 10px;
+}
+.menuProjectList {
+    padding: 0;
+    margin: 10px;
+    //background-color: #1e1e2e;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 210px;
+    border-radius: 10px;
+}
+
+.newProjectButton {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.categoriesMenu {
+    text-align: left;
+}
+.searchContainer {
+
+}
+
+.categoriesList {
+    padding: 0;
+    margin: 10px;
+    //background-color: #1e1e2e;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 210px;
+    border-radius: 10px;
+}
+
+.projectsContainer {
+
+}
+
 .rootrow {
-  display: flex;
-  flex-direction: row;
-}
-.h4-project-title {
-  text-align: center;
+
 }

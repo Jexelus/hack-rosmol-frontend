@@ -1,8 +1,8 @@
 import { useState, useEffect, ReactNode } from 'react';
 import bridge, { UserInfo } from '@vkontakte/vk-bridge';
-import { View, SplitLayout, SplitCol, ScreenSpinner } from '@vkontakte/vkui';
+import { View, SplitLayout, SplitCol, ScreenSpinner, ModalRoot, ModalCard } from '@vkontakte/vkui';
 import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router';
-
+import { Icon56ServicesOutline } from '@vkontakte/icons';
 
 
 import { DEFAULT_VIEW_PANELS } from './routes';
@@ -17,6 +17,7 @@ export const App = () => {
   useEffect(() => {
     async function fetchData() {
       const user = await bridge.send('VKWebAppGetUserInfo');
+      bridge.send('VKWebAppResizeWindow', { width: 1200, height: 700 });
       
       setUser(user);
       console.log(user);
@@ -50,11 +51,31 @@ export const App = () => {
     fetchData();
   }, []);
 
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+  const [modalHistory, setModalHistory] = useState([]);
+
+  const handleModalChange = (newModal) => {
+    setActiveModal(newModal);
+  };
+
+
+  const modal = (
+    <ModalRoot activeModal={activeModal}>
+      <ModalCard
+        id="warning"
+        onClose={() => handleModalChange(null)}
+        header="Эта функция временно недоступна"
+        subheader="Мы всё ещё работаем над приложением, пожалуйста, заходите позже"
+        icon={<Icon56ServicesOutline />}
+      />
+    </ModalRoot>
+  );
+
   return (
-    <SplitLayout popout={popout}>
+    <SplitLayout modal={modal} popout={popout}>
       <SplitCol>
         <View activePanel={activePanel}>
-          <Home id="home" fetchedUser={fetchedUser} />
+          <Home id="home" fetchedUser={fetchedUser} onModalChange={handleModalChange}/>
         </View>
       </SplitCol>
     </SplitLayout>

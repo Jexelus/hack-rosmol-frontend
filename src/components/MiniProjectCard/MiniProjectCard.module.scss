@@ -1,0 +1,22 @@
+.miniProjectCard {
+  padding: 0;
+  width: 220px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.miniProjectCard:hover {
+  transform: scale(1.05);
+}
+
+.groupMiniProj {
+  padding: 0;
+}
+
+.groupMiniProj p {
+  text-align: left;
+  padding: 0;
+}
+
+.groupMiniProjCell {
+  padding: 10px;
+}

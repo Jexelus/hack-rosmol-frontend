@@ -1,0 +1,72 @@
+{/*<Panel id={id}>*/}
+    {/*  <Div className="root">*/}
+    {/*    <Div className="Banner" style={{ width: 200, height: 200 }}>*/}
+    {/*      <img width={870} height={182} src="/images/image.png"></img>*/}
+    {/*    </Div>*/}
+    {/*    <Flex direction="row" className={s.rootrow}>*/}
+    {/*      <Div className={s.gfp}>*/}
+    {/*        <Flex gap="l"  className={s.projects}>*/}
+    {/*            {projectsStore.projects.map((project) => (*/}
+    {/*              <ProjectCard key={project.id}*/}
+    {/*                           name={project.name}*/}
+    {/*                           description={project.description}*/}
+    {/*                           logo={project.logo}*/}
+    {/*                           author_id={project.authorId}/>*/}
+    {/*            ))}*/}
+    {/*        </Flex>*/}
+    {/*      </Div>*/}
+
+    {/*      <Div className="Grid-for-menu">*/}
+    {/*        <Flex gap="l" direction="column">*/}
+    {/*          <Div className={s.user_profile}>*/}
+    {/*            {fetchedUser && (*/}
+    {/*              <Group style={{ maxWidth: 350 }}>*/}
+    {/*                <Cell before={photo_200 && <Avatar src={photo_200} />} subtitle={city?.title}>*/}
+    {/*                  {`${first_name} ${last_name}`}*/}
+    {/*                </Cell>*/}
+    {/*              </Group>*/}
+    {/*            )}*/}
+    {/*          </Div>*/}
+    {/*          <Div className={s.menu}>*/}
+    {/*            <Group>*/}
+    {/*              <Flex margin="auto" direction="column" gap="m">*/}
+    {/*                <Flex.Item flex="shrink">*/}
+    {/*                  <Headline>Мои проекты</Headline>*/}
+    {/*                </Flex.Item>*/}
+    {/*                {projectsStore.projects*/}
+    {/*                  .filter((project) => project.authorId == fetchedUser.id) // Фильтруем проекты по author_id*/}
+    {/*                  .map((project) => (*/}
+    {/*                    <MiniProjectCard*/}
+    {/*                      key={project.id}*/}
+    {/*                      name={project.name}*/}
+    {/*                      description={project.description}*/}
+    {/*                      logo={project.logo}*/}
+    {/*                    />*/}
+    {/*                  ))}*/}
+    {/*                <Flex.Item flex="shrink" style={{ alignItems: 'center', justifyContent: 'center', display: 'flex' }}>*/}
+    {/*                  <Button mode="primary" size="l">Новый проект</Button>*/}
+    {/*                </Flex.Item>*/}
+    {/*              </Flex>*/}
+    {/*            </Group>*/}
+    {/*          </Div>*/}
+    {/*        </Flex>*/}
+    {/*      </Div>*/}
+    {/*    </Flex>*/}
+
+    {/*  </Div>*/}
+    {/*</Panel>*/}
+
+    {/*<Flex margin="auto" direction="column" gap="m">*/}
+          {/*  <div style={{ width: 120, height: 120 }}>*/}
+          {/*    <Image keepAspectRatio src={logo ?? undefined} widthSize="100%" />*/}
+          {/*  </div>*/}
+          {/*  <Flex.Item flex="shrink">*/}
+          {/*    <Headline>{name}</Headline>*/}
+          {/*  </Flex.Item>*/}
+          {/*  <Flex.Item flex="shrink">*/}
+          {/*    <Headline style={{ maxHeight: 40, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'wrap' }}>{description}</Headline>*/}
+          {/*  </Flex.Item>*/}
+          {/*  <Flex.Item flex="shrink">*/}
+          {/*    <p>Автор: <Button mode="primary" onClick={() => window.open(`https://vk.com/id${data.vk_id}`)}>{data.fio}</Button></p>*/}
+          {/*  </Flex.Item>*/}
+          {/*</Flex>*/
