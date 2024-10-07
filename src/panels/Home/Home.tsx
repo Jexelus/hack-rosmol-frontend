@@ -15,9 +15,10 @@ import { apiUrls } from '@/api';
 export interface HomeProps extends NavIdProps {
   fetchedUser?: UserInfo;
   onModalChange: (newModal: string | null) => void;
+  onProjectSelect: (projectId: number | null) => void;
 }
 
-const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange }) => {
+const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange, onProjectSelect }) => {
   const { projectsStore } = useRootStore();
   const { photo_200, city, first_name, last_name } = { ...fetchedUser };
 
@@ -32,6 +33,8 @@ const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange })
   const handleButtonClick = () => {
     onModalChange('warning');
   };
+
+  const handleProjectClick = (id: number) => onProjectSelect(id); // TODO: get project info
 
   useEffect(() => {
     fetch(apiUrls.categories)
@@ -64,7 +67,7 @@ const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange })
     category.toLowerCase().includes(searchTerm.toLowerCase())
   ) : [];
 
-  console.log(categories)
+  // console.log(categories)
   return (
   <Panel id={id}>
     <Div className={s.root}>
@@ -82,6 +85,8 @@ const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange })
                            logo={project.logo}
                            author_id={project.authorId}
                            onModalChange={onModalChange}
+                           onProjectSelect={handleProjectClick}
+                           pr_id={project.id}
               />
               ))}
           </Flex>
@@ -128,7 +133,7 @@ const Home: React.FC<HomeProps> = observer(({ id, fetchedUser , onModalChange })
             </Div>
             <Div className={s.categoriesList}>
               {filteredCategories.map((category, index) => (
-                <Div key={index}>
+                <Div className={s.categoriesListItem} key={index} onClick={handleButtonClick}>
                   {category}
                 </Div>
               ))}

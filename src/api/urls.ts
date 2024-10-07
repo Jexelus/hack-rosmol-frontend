@@ -5,4 +5,5 @@ export const apiUrls = {
   userCreate: `${API_BASE_URL}/user/create/`,
   user: `${API_BASE_URL}/user/`,
   categories: `${API_BASE_URL}/categories/`,
+  proj: `${API_BASE_URL}/proj/`,
 };

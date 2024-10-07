@@ -1,0 +1,54 @@
+.headerTitle {
+
+}
+.projectModalContainer {
+  text-align: left;
+}
+
+.projectModalImage {
+    display: flex;
+    justify-content: center;
+  img {
+    border-radius: 25px;
+  }
+}
+
+.projectModalHeader {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: #4f4f4f;
+}
+
+.projectModalField {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #4f4f4f;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  p {
+    margin: 0;
+  }
+}
+.projectModalField:hover {
+  transform: scale(1.05);
+}
+.projectModalLargeTextBlock {
+  border-radius: 10px;
+  background-color: #4f4f4f;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.projectModalLargeTextBlock:hover {
+  transform: scale(1.02);
+
+}
+
+.projectModalLargeTextBlockTitle {
+  border-radius: 10px;
+  //background-color: #4f4f4f;
+  padding: 10px;
+}
+
+

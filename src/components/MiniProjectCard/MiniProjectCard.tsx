@@ -10,7 +10,7 @@ type ProjectCardProps = {
 import s from './MiniProjectCard.module.scss';
 
 const MiniProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo }) => {
-  console.log("TRIGGERED MINI PROJECT CARD {}", name)
+  // console.log("TRIGGERED MINI PROJECT CARD {}", name)
   return (
     <Div className={s.miniProjectCard}>
       <Group className={s.groupMiniProj}>

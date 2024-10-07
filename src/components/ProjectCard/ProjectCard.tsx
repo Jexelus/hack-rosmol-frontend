@@ -10,17 +10,27 @@ type ProjectCardProps = {
   description: string | null;
   logo: string | null;
   author_id: number | null;
+  pr_id: number | null;
   onModalChange: (newModal: string | null) => void;
+  onProjectSelect: (projectId: number | null) => void;
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo, author_id , onModalChange}) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ name,
+                                                   description,
+                                                   logo,
+                                                   author_id ,
+                                                   onModalChange,
+                                                   onProjectSelect,
+                                                   pr_id}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const handleButtonClick = () => {
-    onModalChange('warning');
+    onModalChange('project');
   };
+
+  const handleProjectClick = (id: number | null) => onProjectSelect(id); // TODO: get project info
 
   useEffect(() => {
     if (!author_id) {
@@ -53,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo, auth
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-  console.log(data)
+  console.log("TRIGGERED PROJECT CARD id->", data.id)
   return (
     <Group className={s.card}>
       <Div className={s.body}>
@@ -66,7 +76,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, logo, auth
         <p>{description ?? 'Нет описания'}</p>
       </Div>
       <Div className={s.ButtonRow}>
-        <Button mode="secondary" size="l" onClick={handleButtonClick}>
+        <Button mode="secondary" size="l" onClick={() => {handleProjectClick(pr_id); handleButtonClick()}}>
           Подробнее
         </Button>
       </Div>
