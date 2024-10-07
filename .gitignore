@@ -29,3 +29,7 @@ yarn-error.log*
 
 #env
 vite-env.d.ts
+
+vk-hosting-config.json
+/vk-hosting-config.json
+vk-hosting-config.json
